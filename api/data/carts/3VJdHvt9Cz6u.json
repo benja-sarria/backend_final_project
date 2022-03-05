@@ -1,0 +1,28 @@
+{
+    "id": "3VJdHvt9Cz6u",
+    "timestamp": 1646515539867,
+    "products": [
+        {
+            "name": "Vehículo de carreras",
+            "desc": "Modelo 2000 ",
+            "price": 10000000023,
+            "stock": 30,
+            "thumbnail": "url",
+            "id": 15,
+            "code": 15,
+            "timestamp": 1646507224724,
+            "quantity": 2
+        },
+        {
+            "id": 12,
+            "code": 12,
+            "timestamp": 1646495428695,
+            "name": "Tacos Negros",
+            "desc": "",
+            "price": 3500,
+            "stock": 500,
+            "thumbnail": "https://cdn0.iconfinder.com/data/icons/shoes-2/502/Unnamed-22-128.png",
+            "quantity": 2
+        }
+    ]
+}

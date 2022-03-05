@@ -1,0 +1,162 @@
+[
+    {
+        "id": 1,
+        "code": 1,
+        "timestamp": 1646495428695,
+        "name": "Mountain Bike Venzo model 2",
+        "desc": "",
+        "price": 50000,
+        "stock": 500,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/fabricons-bicycle-type/512/05_Mountain_Bike-128.png"
+    },
+    {
+        "id": 3,
+        "code": 3,
+        "timestamp": 1646495428695,
+        "name": "Zapatillas",
+        "desc": "",
+        "price": 35000,
+        "stock": 500,
+        "thumbnail": "https://cdn4.iconfinder.com/data/icons/activity-1-1/32/93-128.png"
+    },
+    {
+        "id": 4,
+        "code": 4,
+        "timestamp": 1646495428695,
+        "name": "Botas de Nieve",
+        "desc": "",
+        "price": 40000,
+        "stock": 500,
+        "thumbnail": "https://cdn0.iconfinder.com/data/icons/shoes-27/128/Shoes-snow-boots-fashion-footwear-128.png"
+    },
+    {
+        "id": 5,
+        "code": 5,
+        "timestamp": 1646495428695,
+        "name": "Campera polar",
+        "desc": "",
+        "price": 20000,
+        "stock": 500,
+        "thumbnail": "https://cdn2.iconfinder.com/data/icons/fashion-2-4/48/146-128.png"
+    },
+    {
+        "id": 6,
+        "code": 6,
+        "timestamp": 1646495428695,
+        "name": "Remera Blanca",
+        "desc": "",
+        "price": 4500,
+        "stock": 500,
+        "thumbnail": "https://cdn1.iconfinder.com/data/icons/clothing-and-accessories-4/136/t-shirt_7-128.png"
+    },
+    {
+        "id": 7,
+        "code": 7,
+        "timestamp": 1646495428695,
+        "name": "Buzo con capucha",
+        "desc": "",
+        "price": 12000,
+        "stock": 500,
+        "thumbnail": "https://cdn3.iconfinder.com/data/icons/object-emoji/50/Hoody-128.png"
+    },
+    {
+        "id": 8,
+        "code": 8,
+        "timestamp": 1646495428695,
+        "name": "Ojotas para veranear",
+        "desc": "",
+        "price": 5000,
+        "stock": 500,
+        "thumbnail": "https://cdn2.iconfinder.com/data/icons/summer-89/64/sandals-beach-wear-shoes-summer-sand-128.png"
+    },
+    {
+        "id": 10,
+        "code": 10,
+        "timestamp": 1646495428695,
+        "name": "Bicicleta Venzo Playera",
+        "desc": "",
+        "price": 10000,
+        "stock": 500,
+        "thumbnail": "https://cdn4.iconfinder.com/data/icons/summer-beach-10/64/BIKE-bycicle-sport-exercise-cycling-128.png"
+    },
+    {
+        "id": 11,
+        "code": 11,
+        "timestamp": 1646495428695,
+        "name": "Bicicleta Venzo de Ruta",
+        "desc": "",
+        "price": 1000000,
+        "stock": 500,
+        "thumbnail": "https://cdn1.iconfinder.com/data/icons/bicycles-2/188/Road_bike-128.png"
+    },
+    {
+        "id": 2,
+        "code": 2,
+        "timestamp": 1646495428695,
+        "name": "Remera Azul",
+        "desc": "",
+        "price": 5000,
+        "stock": 500,
+        "thumbnail": "https://cdn0.iconfinder.com/data/icons/sports-football/64/2-19-128.png"
+    },
+    {
+        "id": 9,
+        "code": 9,
+        "timestamp": 1646495428695,
+        "name": "Novela de Borges",
+        "desc": "",
+        "price": 50000,
+        "stock": 500,
+        "thumbnail": "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/book-128.png"
+    },
+    {
+        "id": 12,
+        "code": 12,
+        "timestamp": 1646495428695,
+        "name": "Tacos Negros",
+        "desc": "",
+        "price": 3500,
+        "stock": 500,
+        "thumbnail": "https://cdn0.iconfinder.com/data/icons/shoes-2/502/Unnamed-22-128.png"
+    },
+    {
+        "id": 13,
+        "code": 13,
+        "timestamp": 1646495428695,
+        "name": "Bordeadora Stihl modelo scar",
+        "desc": "",
+        "price": 32000,
+        "stock": 500,
+        "thumbnail": "https://cdn2.iconfinder.com/data/icons/lawn-mower-equipment/100/handle_lawn_mower_color_mover_equipment_smart-128.png"
+    },
+    {
+        "name": "Transbordador Espacial Automático Deluxe",
+        "desc": "Modelo 2015",
+        "price": 700000000000,
+        "stock": 100,
+        "thumbnail": "url",
+        "id": 14,
+        "code": 14,
+        "timestamp": 1646505495808
+    },
+    {
+        "name": "Ascensor eléctrico",
+        "desc": "Modelo 2000 ",
+        "price": 100000000,
+        "stock": 8,
+        "thumbnail": "url",
+        "id": 17,
+        "code": 17,
+        "timestamp": 1646506393816
+    },
+    {
+        "name": "Vehículo de carreras",
+        "desc": "Modelo 2000 ",
+        "price": 10000000023,
+        "stock": 30,
+        "thumbnail": "url",
+        "id": 15,
+        "code": 15,
+        "timestamp": 1646507224724
+    }
+]
