@@ -22,7 +22,10 @@ export const DbAdminForm = ({
         } else if (evt.nativeEvent.srcElement.id === "formStock") {
             setValuesToModify({ ...valuesToModify, stock: evt.target.value });
         } else if (evt.nativeEvent.srcElement.id === "formImg") {
-            setValuesToModify({ ...valuesToModify, img: evt.target.value });
+            setValuesToModify({
+                ...valuesToModify,
+                thumbnail: evt.target.value,
+            });
         } else if (evt.nativeEvent.srcElement.id === "formProdId") {
             setValuesToModify({ ...valuesToModify, id: evt.target.value });
         }
@@ -47,34 +50,54 @@ export const DbAdminForm = ({
                         <Form.Control
                             type="text"
                             placeholder="Ingresa el nombre del producto"
+                            data-id="name"
+                            onChange={(evt) => {
+                                handleInputs(evt);
+                            }}
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formDescription">
+                    <Form.Group className="mb-3" controlId="formDesc">
                         <Form.Label>Descripción</Form.Label>
                         <Form.Control
                             type="text"
+                            data-id="desc"
                             placeholder="Ingresa la descripción del producto"
+                            onChange={(evt) => {
+                                handleInputs(evt);
+                            }}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formPrice">
                         <Form.Label>Precio</Form.Label>
                         <Form.Control
                             type="number"
+                            data-id="price"
                             placeholder="Ingresa el precio del producto"
+                            onChange={(evt) => {
+                                handleInputs(evt);
+                            }}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formStock">
                         <Form.Label>Stock</Form.Label>
                         <Form.Control
                             type="number"
+                            data-id="stock"
                             placeholder="Ingresa el stock del producto"
+                            onChange={(evt) => {
+                                handleInputs(evt);
+                            }}
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formImg">
                         <Form.Label>Imagen</Form.Label>
                         <Form.Control
                             type="text"
+                            data-id="img"
                             placeholder="Ingresa la url de la imagen del producto"
+                            onChange={(evt) => {
+                                handleInputs(evt);
+                            }}
                         />
                     </Form.Group>
                 </>

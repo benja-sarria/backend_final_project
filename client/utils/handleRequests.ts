@@ -3,9 +3,10 @@ export const handleRequests = async (
     type: string | string[] | undefined
 ) => {
     console.log(data);
+    console.log(JSON.stringify(data));
 
     const url =
-        type === "Agregar Producto"
+        type === "Agregar Productos"
             ? "https://backendfinalproject.glitch.me/api/products"
             : type === "Modificar Productos"
             ? `https://backendfinalproject.glitch.me/api/products`
@@ -14,7 +15,7 @@ export const handleRequests = async (
     // Opciones por defecto estan marcadas con un *
     const response = await fetch(url, {
         method:
-            type === "Agregar Producto"
+            type === "Agregar Productos"
                 ? "POST"
                 : type === "Modificar Productos"
                 ? "PUT"
@@ -30,5 +31,6 @@ export const handleRequests = async (
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: JSON.stringify(data), // body data type must match "Content-Type" header
     });
+
     return await response.json(); // parses JSON response into native JavaScript objects
 };

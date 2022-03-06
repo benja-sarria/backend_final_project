@@ -36,7 +36,7 @@ router.get("/:id?", async (req, res) => {
 
 // POST
 // Create new product in DataBase
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     try {
         if (req.isAuth) {
             if (
@@ -63,7 +63,7 @@ router.post("/", (req, res) => {
                         stock: Number(req.body.stock),
                         price: Number(req.body.price),
                     };
-                    req.products.saveProduct(newProduct);
+                    const response = await req.products.saveProduct(newProduct);
                 }
             }
         } else {
