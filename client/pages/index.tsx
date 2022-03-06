@@ -8,6 +8,10 @@ import { ProductListContainer } from "../components/ProductListContainer/Product
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
+    const { productList } = useContext(ProductsContext);
+
+    useEffect(() => {}, [productList]);
+
     return (
         <div className={styles.container}>
             <Head>

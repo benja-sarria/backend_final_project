@@ -1,7 +1,9 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
-import { SyntheticEvent, useEffect, useState } from "react";
+import debounce from "lodash.debounce";
+import { SyntheticEvent, useCallback, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { ValuesToModifyModel } from "../../models/ValuesToModifyModel";
+import { fetchProducts } from "../../utils/fetchProducts";
 import { handleRequests } from "../../utils/handleRequests";
 
 export const DbAdminForm = ({
@@ -9,14 +11,21 @@ export const DbAdminForm = ({
     handleInputs,
     actualInput,
     valuesToModify,
-    setActualInput,
+    setActualInput, setProductList
 }: {
     type: string | string[] | undefined;
     handleInputs: Function;
     actualInput: string[];
     valuesToModify: ValuesToModifyModel;
-    setActualInput: Function;
+    setActualInput: Function; setProductList: Function
 }) => {
+    const debounceRedirect = useCallback(
+        debounce(() => {
+            fetchProducts(setProductList);
+        }, 10000),
+        []
+    );
+
     useEffect(() => {
         console.log(valuesToModify);
         console.log(actualInput);
@@ -28,6 +37,8 @@ export const DbAdminForm = ({
                 evt.preventDefault();
                 const res = await handleRequests(valuesToModify, type);
                 console.log(res);
+
+                debounceRedirect();
             }}
         >
             {type === "Agregar Productos" ? (

@@ -5,13 +5,13 @@ export const fetchProducts = async (
 ): Promise<any> => {
     if (!filterProducts) {
         const products = await fetch(
-            "https://backendfinalproject.glitch.me/api/products"
+            "https://node-backend-project.glitch.me/api/products"
         );
         const data = await products.json();
         setProductList(data);
     } else {
         const products = await fetch(
-            `https://backendfinalproject.glitch.me/api/products/${productId}`
+            `https://node-backend-project.glitch.me/api/products/${productId}`
         );
         const data = await products.json();
         setProductList(data);

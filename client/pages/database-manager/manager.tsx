@@ -19,6 +19,7 @@ const Manager = () => {
 
     const handleInputs = (evt?: any, value?: number) => {
         console.log(evt);
+        console.log(value);
 
         if (evt) {
             console.log(evt.nativeEvent.srcElement.id);
@@ -61,6 +62,8 @@ const Manager = () => {
             } else if (evt.nativeEvent.srcElement.id === "formProdId") {
                 setValuesToModify({ ...valuesToModify, id: value });
             }
+        } else {
+            setValuesToModify({ ...valuesToModify, id: value });
         }
     };
 
@@ -83,6 +86,7 @@ const Manager = () => {
                     actualInput={actualInput}
                     valuesToModify={valuesToModify}
                     setActualInput={setActualInput}
+                    setProductList={setProductList}
                 />
             ) : (
                 productList && (
@@ -99,6 +103,8 @@ const Manager = () => {
                                         valuesToModify={valuesToModify}
                                         type={type}
                                         setValuesToModify={setValuesToModify}
+                                        setProductList={setProductList}
+                                        productList={productList}
                                     />
                                 );
                             }

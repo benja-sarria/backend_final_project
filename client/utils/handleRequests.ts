@@ -17,10 +17,10 @@ export const handleRequests = async (
 
     const url =
         type === "Agregar Productos"
-            ? "https://backendfinalproject.glitch.me/api/products"
+            ? "https://node-backend-project.glitch.me/api/products"
             : type === "Modificar Productos"
-            ? `https://backendfinalproject.glitch.me/api/products`
-            : `https://backendfinalproject.glitch.me/api/products/${data.id}`;
+            ? `https://node-backend-project.glitch.me/api/products`
+            : `https://node-backend-project.glitch.me/api/products/${data.id}`;
 
     // Opciones por defecto estan marcadas con un *
     const response = await fetch(url, {
