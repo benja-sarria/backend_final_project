@@ -1,25 +1,18 @@
 import { createContext, ReactChildren, useEffect, useState } from "react";
+import { ProductModel } from "../../models/ProductModel";
+import { fetchProducts } from "../../utils/fetchProducts";
 
-const ProductsContext = createContext<any>(null);
+export const ProductsContext = createContext<any>(null);
 
-export const ProductsProvider = ({ children }: { children: ReactChildren }) => {
-    const [productList, setProductList] = useState([]);
-
-    const fetchProducts = async () => {
-        const products = await fetch(
-            "https://backendfinalproject.glitch.me/api/products"
-        );
-        return products;
-    };
+export const ProductsProvider = ({ children }: { children: any }) => {
+    const [productList, setProductList] = useState<any>(null);
 
     useEffect(() => {
-        console.log(fetchProducts());
-
-        return () => {};
+        fetchProducts(setProductList);
     }, []);
 
     return (
-        <ProductsContext.Provider value={{ ProductsContext, setProductList }}>
+        <ProductsContext.Provider value={{ productList, setProductList }}>
             {children}
         </ProductsContext.Provider>
     );

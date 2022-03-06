@@ -1,4 +1,5 @@
 import express from "express";
+import { allowAccess } from "../../middlewares/allowAccess.js";
 import { productsInstance } from "../../middlewares/productInstance.js";
 
 export const router = express.Router();
@@ -87,7 +88,7 @@ router.post("/", (req, res) => {
 
 // PUT
 // Update product by ID
-router.put("/", (req, res) => {
+router.put("/", [allowAccess], (req, res) => {
     try {
         if (req.isAuth) {
             if (!req.body.id || !Number(req.body.id)) {
