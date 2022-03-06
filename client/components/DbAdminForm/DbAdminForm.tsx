@@ -1,35 +1,22 @@
 import { InputLabel, MenuItem, Select } from "@mui/material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { ValuesToModifyModel } from "../../models/ValuesToModifyModel";
 import { handleRequests } from "../../utils/handleRequests";
 
 export const DbAdminForm = ({
     type,
+    handleInputs,
+    actualInput,
+    valuesToModify,
+    setActualInput,
 }: {
     type: string | string[] | undefined;
+    handleInputs: Function;
+    actualInput: string[];
+    valuesToModify: ValuesToModifyModel;
+    setActualInput: Function;
 }) => {
-    const [actualInput, setActualInput] = useState(["inputs"]);
-    const [valuesToModify, setValuesToModify] = useState({});
-    console.log(type);
-
-    const handleInputs = (evt: any) => {
-        if (evt.nativeEvent.srcElement.id === "formName") {
-            setValuesToModify({ ...valuesToModify, name: evt.target.value });
-        } else if (evt.nativeEvent.srcElement.id === "formDesc") {
-            setValuesToModify({ ...valuesToModify, desc: evt.target.value });
-        } else if (evt.nativeEvent.srcElement.id === "formPrice") {
-            setValuesToModify({ ...valuesToModify, price: evt.target.value });
-        } else if (evt.nativeEvent.srcElement.id === "formStock") {
-            setValuesToModify({ ...valuesToModify, stock: evt.target.value });
-        } else if (evt.nativeEvent.srcElement.id === "formImg") {
-            setValuesToModify({
-                ...valuesToModify,
-                thumbnail: evt.target.value,
-            });
-        } else if (evt.nativeEvent.srcElement.id === "formProdId") {
-            setValuesToModify({ ...valuesToModify, id: evt.target.value });
-        }
-    };
     useEffect(() => {
         console.log(valuesToModify);
         console.log(actualInput);

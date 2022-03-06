@@ -1,9 +1,18 @@
+import { ValuesToModifyModel } from "../models/ValuesToModifyModel";
+
 export const handleRequests = async (
     data: { id?: number } = {},
     type: string | string[] | undefined
 ) => {
-    console.log(data);
-    console.log(JSON.stringify(data));
+    const receivedData: ValuesToModifyModel = data;
+    console.log(receivedData);
+    const dataKeys = Object.keys(data);
+    dataKeys.forEach((key: string) => {
+        if (receivedData[key as keyof ValuesToModifyModel] === "") {
+            delete receivedData[key as keyof ValuesToModifyModel];
+        }
+    });
+    console.log(JSON.stringify(receivedData));
 
     const url =
         type === "Agregar Productos"
@@ -29,7 +38,7 @@ export const handleRequests = async (
         },
         redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-        body: JSON.stringify(data), // body data type must match "Content-Type" header
+        body: JSON.stringify(receivedData), // body data type must match "Content-Type" header
     });
 
     return await response.json(); // parses JSON response into native JavaScript objects
