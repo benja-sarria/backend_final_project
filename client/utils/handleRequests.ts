@@ -13,6 +13,7 @@ export const handleRequests = async (
         }
     });
     console.log(JSON.stringify(receivedData));
+    console.log(data);
 
     const url =
         type === "Agregar Productos"
