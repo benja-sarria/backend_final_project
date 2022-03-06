@@ -143,10 +143,11 @@ router.put("/", [allowAccess], (req, res) => {
                             };
                         }
 
-                        req.products.updateProduct(
+                        const response = await req.products.updateProduct(
                             Number(req.body.id),
                             updatedFields
                         );
+                        res.json(response);
                     }
                 }
             }
