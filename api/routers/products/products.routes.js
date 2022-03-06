@@ -88,7 +88,7 @@ router.post("/", (req, res) => {
 
 // PUT
 // Update product by ID
-router.put("/", [allowAccess], (req, res) => {
+router.put("/", [allowAccess], async (req, res) => {
     try {
         if (req.isAuth) {
             if (!req.body.id || !Number(req.body.id)) {
