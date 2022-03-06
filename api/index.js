@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 8080;
 
 // Middlewares
 app.use(authMiddleware);
+app.use(express.static("public"));
 
 // Routes
 app.use("/api", router);
