@@ -64,6 +64,7 @@ router.post("/", async (req, res) => {
                         price: Number(req.body.price),
                     };
                     const response = await req.products.saveProduct(newProduct);
+                    res.json(response);
                 }
             }
         } else {
