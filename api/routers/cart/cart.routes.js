@@ -27,7 +27,7 @@ router.get("/:id/products", async (req, res) => {
 
 // POST
 // Create new cart
-router.post("/", [allowAccess], async (req, res) => {
+router.post("/", allowAccess, async (req, res) => {
     try {
         const cartId = await req.cart.createFile();
         res.json({
@@ -39,7 +39,7 @@ router.post("/", [allowAccess], async (req, res) => {
 });
 
 // Adds products to cart
-router.post("/:id?/products", [allowAccess], async (req, res) => {
+router.post("/:id?/products", allowAccess, async (req, res) => {
     try {
         const { id } = req.params;
         const { productId, quantity } = req.body;

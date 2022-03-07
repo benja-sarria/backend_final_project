@@ -2,6 +2,7 @@ import express from "express";
 import { authMiddleware } from "./middlewares/authMiddleware.js";
 import { router } from "./routers/index.js";
 import dotenv from "dotenv";
+import { allowAccess } from "./middlewares/allowAccess.js";
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 8080;
 
 // Middlewares
 app.use(authMiddleware);
+app.use(allowAccess);
 app.use(express.static("public"));
 
 // Routes
