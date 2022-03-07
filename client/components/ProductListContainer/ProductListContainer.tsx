@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { ProductModel } from "../../models/ProductModel";
 import { fetchProducts } from "../../utils/fetchProducts";
@@ -7,42 +8,21 @@ import style from "./ProductListContainer.module.scss";
 
 export const ProductListContainer = () => {
     const { productList, setProductList } = useContext(ProductsContext);
-    const [filteredProduct, setFilteredProduct] = useState<
-        ProductModel | undefined
-    >();
+
+    const router = useRouter();
 
     const handleProductDetail = (productId: number) => {
-        fetchProducts(setFilteredProduct, true, productId);
-    };
-
-    const backToList = () => {
-        fetchProducts(setProductList);
-        setFilteredProduct(undefined);
+        router.push(`/productDetail/${productId}`);
     };
 
     useEffect(() => {}, []);
 
     return (
         <div className={`${style["section-container"]}`}>
-            <button
-                className={`btn btn-primary`}
-                onClick={() => {
-                    backToList();
-                }}
-            >
-                Back to list
-            </button>
-
             <div
                 className={` container ${style["custom-product-list-container"]}`}
             >
-                {filteredProduct ? (
-                    <ProductCard
-                        product={filteredProduct}
-                        handleProductDetail={handleProductDetail}
-                    />
-                ) : (
-                    productList &&
+                {productList &&
                     productList.map((product: ProductModel, index: number) => {
                         return (
                             <ProductCard
@@ -51,8 +31,7 @@ export const ProductListContainer = () => {
                                 handleProductDetail={handleProductDetail}
                             />
                         );
-                    })
-                )}
+                    })}
             </div>
         </div>
     );

@@ -1,10 +1,11 @@
 import express from "express";
+import { allowAccess } from "../../middlewares/allowAccess.js";
 import { cartInstance } from "../../middlewares/cartInstance.js";
 import { productsInstance } from "../../middlewares/productInstance.js";
 
 export const router = express.Router();
 
-router.use([cartInstance, productsInstance]);
+router.use([allowAccess, cartInstance, productsInstance]);
 
 // GET
 // Get cart's product list
