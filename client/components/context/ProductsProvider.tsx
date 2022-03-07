@@ -11,6 +11,13 @@ export const ProductsProvider = ({ children }: { children: any }) => {
 
     useEffect(() => {
         fetchProducts(setProductList);
+        const currentCart = localStorage.getItem("currentCart");
+        console.log(currentCart);
+        if (currentCart) {
+            const parsedCart = JSON.parse(currentCart);
+            setCart({ ...parsedCart });
+            console.log(cart);
+        }
     }, []);
 
     return (

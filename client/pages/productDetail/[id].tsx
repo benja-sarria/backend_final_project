@@ -29,6 +29,22 @@ const ProductDetailContainer = () => {
                 filteredProduct
             );
             console.log(addedProduct);
+            setCart({ ...addedProduct });
+
+            const parsedCart = JSON.stringify(addedProduct);
+            localStorage.setItem("currentCart", parsedCart);
+        } else {
+            console.log("there's already a cart");
+            const addedProduct = await handleCartRequests(
+                false,
+                filteredProduct,
+                cart.id
+            );
+
+            console.log(addedProduct);
+            setCart({ ...addedProduct });
+            const parsedCart = JSON.stringify(addedProduct);
+            localStorage.setItem("currentCart", parsedCart);
         }
         console.log(id);
     };
