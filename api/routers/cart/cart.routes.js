@@ -2,10 +2,11 @@ import express from "express";
 import { allowAccess } from "../../middlewares/allowAccess.js";
 import { cartInstance } from "../../middlewares/cartInstance.js";
 import { productsInstance } from "../../middlewares/productInstance.js";
+import Cart from "../../utils/cartMethods.js";
 
 export const router = express.Router();
 
-router.use([allowAccess, cartInstance, productsInstance]);
+router.use([allowAccess, productsInstance]);
 
 // GET
 // Get cart's product list
@@ -27,7 +28,7 @@ router.get("/:id/products", async (req, res) => {
 
 // POST
 // Create new cart
-router.post("/", allowAccess, async (req, res) => {
+router.post("/", [allowAccess, cartInstance], async (req, res) => {
     try {
         const cartId = await req.cart.createFile();
         res.json({
@@ -39,10 +40,10 @@ router.post("/", allowAccess, async (req, res) => {
 });
 
 // Adds products to cart
-router.post("/:id?/products", allowAccess, async (req, res) => {
+router.post("/:id/products", allowAccess, async (req, res) => {
     try {
         const { id } = req.params;
-        const { productId, quantity } = req.body;
+        const { id: productId, quantity } = req.body;
         console.log(req.params);
         console.log(req.body);
         if (!id) {
@@ -65,7 +66,8 @@ router.post("/:id?/products", allowAccess, async (req, res) => {
                     +productId
                 );
                 console.log(productToAdd);
-                const response = await req.cart.addProduct(
+                const cart = new Cart(`${id}.json`);
+                const response = await cart.addProduct(
                     productToAdd,
                     +quantity,
                     id
