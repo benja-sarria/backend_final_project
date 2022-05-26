@@ -2,3 +2,4 @@ node_modules/
 .env
 *.env
 build/
+data/backend-ecommerce-d07c9-firebase-adminsdk-mdb09-8d6e54fb29.json
