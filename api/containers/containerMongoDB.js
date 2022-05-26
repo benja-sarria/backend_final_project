@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { CartsModel } from "../models/Carts.js";
 import { ProductsModel } from "../models/Products.js";
+import { UsersModel } from "../models/Users.js";
 
 export class MongoDBContainer {
     constructor(DB_PASSWORD, DATABASE, type) {
@@ -30,6 +31,10 @@ export class MongoDBContainer {
                 } else {
                     console.log("El cart ya existe");
                 }
+            }
+            if (this.type === "users") {
+                await UsersModel.create(object);
+                console.log("User created successfully");
             }
         } catch (error) {
             console.log(error.message);
@@ -73,6 +78,25 @@ export class MongoDBContainer {
                     projectionObject
                 );
                 return products;
+            }
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            mongoose.disconnect();
+        }
+    }
+
+    async findByEmail(email, projectionObject = {}) {
+        try {
+            await mongoose.connect(this.DB_URI);
+            console.log(`Database connected correctly!`);
+
+            if (this.type === "users") {
+                const users = await UsersModel.find(
+                    { email: email },
+                    projectionObject
+                );
+                return users;
             }
         } catch (error) {
             console.log(error.message);

@@ -9,6 +9,11 @@ import { MongoDBCartsDao } from "./daos/carts/mongoDBCartsDao.js";
 import { FirestoreContainer } from "./containers/containerFirestore.js";
 import { FirebaseProductsDao } from "./daos/products/firebaseProductDao.js";
 import { FirebaseCartsDao } from "./daos/carts/firebaseCartsDao.js";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import { config } from "./config.js";
+import passport from "./middlewares/passport.js";
+import bodyParser from "body-parser";
 
 dotenv.config();
 
@@ -19,6 +24,24 @@ const PORT = process.env.PORT || 8080;
 app.use(authMiddleware);
 app.use(allowAccess);
 app.use(express.static("public"));
+app.use(bodyParser({ extended: true }));
+app.use(
+    session({
+        name: "my-session",
+        secret: "top-secret-51",
+        resave: false,
+        saveUninitialized: false,
+        store: MongoStore.create({
+            mongoUrl: `mongodb+srv://benjasarria:${config.DB_PASSWORD}@coderhouse-ecommerce.rogfv.mongodb.net/${config.SESSION_DB}?retryWrites=true&w=majority`,
+        }),
+        cookie: {
+            maxAge: 600000,
+        },
+    })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use("/api", router);
@@ -150,7 +173,6 @@ app.get("/test", async (req, res) => {
 
 // Invalid Routes Handling
 app.get("*", function (req, res) {
-    console.log(req);
     res.json({
         error: -2,
         description: `Route: "${req.originalUrl}, Method: ${req.method}, not implemented" `,

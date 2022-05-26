@@ -1,14 +1,19 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { useContext, useEffect } from "react";
+import Cookies from "cookies";
+import { ReactPropTypes, useContext, useEffect } from "react";
 import { ProductsContext } from "../components/context/ProductsProvider";
 import { PageDrawer } from "../components/PageDrawer/PageDrawer";
 import { ProductListContainer } from "../components/ProductListContainer/ProductListContainer";
 import styles from "../styles/Home.module.css";
+import { authFunction } from "../utils/authFunction";
+import { ServerResponse } from "http";
+import { useRouter } from "next/router";
 
-const Home: NextPage = () => {
+const Home: any = (props: { props: ReactPropTypes }) => {
     const { productList } = useContext(ProductsContext);
+    const { backendUrl }: any = props;
 
     useEffect(() => {}, [productList]);
 
@@ -52,3 +57,27 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps(context: any) {
+    const backendUrl: string | undefined = process.env.DEVELOPMENT_BACKEND_URL;
+    console.log(process.env.DEVELOPMENT_BACKEND_URL);
+    const cookies = new Cookies(context.req, context.res);
+    
+
+    const isAuth: string | undefined = cookies.get("HSID");
+
+    if (isAuth) {
+        return {
+            props: {
+                isAuth: true,
+            }, // will be passed to the page component as props
+        };
+    } else {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/login",
+            },
+        };
+    }
+}
