@@ -35,6 +35,8 @@ export class MongoDBContainer {
             if (this.type === "users") {
                 await UsersModel.create(object);
                 console.log("User created successfully");
+                const user = await UsersModel.find({ id: object.id }, {});
+                return user;
             }
         } catch (error) {
             console.log(error.message);

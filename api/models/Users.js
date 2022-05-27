@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const collection = "users";
 
 export const UsersSchema = new Schema({
-    id: { type: Number, required: true },
+    id: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
     name: { type: String, required: true },

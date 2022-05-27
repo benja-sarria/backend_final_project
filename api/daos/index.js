@@ -30,7 +30,7 @@ export class CartDao {
 
 export class UsersDao {
     constructor() {
-        this.MongoDBCartsDao = new MongoDBUsersDao(
+        this.MongoDBUsersDao = new MongoDBUsersDao(
             config.DB_PASSWORD,
             config.DATABASE
         );

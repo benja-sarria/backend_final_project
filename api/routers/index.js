@@ -4,6 +4,7 @@ import { router as cartRoutes } from "./cart/cart.routes.js";
 import { allowAccess } from "../middlewares/allowAccess.js";
 import { router as authRoutes } from "./auth/auth.routes.js";
 import { config } from "../config.js";
+import { serialize } from "cookie";
 
 import passport from "../middlewares/passport.js";
 import { formDataParser } from "../middlewares/formDataParser.js";
@@ -24,8 +25,26 @@ router.post(
     [formDataParser],
     passport.authenticate("register", {
         failureRedirect: "/register-error",
-        successRedirect: `${config.FRONT_URL}/`,
-    })
+    }),
+    (req, res) => {
+        console.log("se registró");
+        console.log(config.FRONT_URL);
+        console.log(req);
+
+        const serialized = serialize("tkn", req.user._id, {
+            httpOnly: true,
+            sameSite: "strict",
+            maxAge: 60 * 60 * 24,
+            path: "/",
+        });
+
+        res.setHeader("Set-Cookie", serialized);
+
+        res.send({
+            loggedIn: true,
+            user: req.user,
+        });
+    }
 );
 router.post(
     "/login",

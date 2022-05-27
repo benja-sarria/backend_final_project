@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { SyntheticEvent } from "react";
 import style from "./RegisterForm.module.scss";
 export const RegisterForm = ({
@@ -5,6 +6,8 @@ export const RegisterForm = ({
 }: {
     backendUrl: string | undefined;
 }) => {
+    const router = useRouter();
+
     return (
         <>
             <h1 className={style["custom-heading"]}>Te damos la bienvenida!</h1>
@@ -13,25 +16,43 @@ export const RegisterForm = ({
                 action={`${backendUrl}/api/register`}
                 method="post"
                 encType="multipart/form-data"
-                onSubmit={(e: any) => {
-                    e.preventDefault();
-                    const form = new FormData();
-                    console.dir(e.target.avatar);
+                onSubmit={async (e: any) => {
+                    try {
+                        e.preventDefault();
+                        const form = new FormData();
+                        console.dir(e.target.avatar);
 
-                    form.append("username", e.target?.username.value);
-                    form.append("name", e.target?.name.value);
-                    form.append("address", e.target?.address.value);
-                    form.append("age", e.target?.age.value);
-                    form.append("phoneNumber", e.target?.phoneNumber.value);
-                    form.append("password", e.target?.password.value);
-                    form.append("passwordCheck", e.target?.passwordCheck.value);
-                    form.append("avatar", e.target?.avatar.files[0]);
+                        form.append("username", e.target?.username.value);
+                        form.append("email", e.target?.username.value);
+                        form.append("name", e.target?.name.value);
+                        form.append("address", e.target?.address.value);
+                        form.append("age", e.target?.age.value);
+                        form.append("phoneNumber", e.target?.phoneNumber.value);
+                        form.append("password", e.target?.password.value);
+                        form.append(
+                            "passwordCheck",
+                            e.target?.passwordCheck.value
+                        );
+                        form.append("avatar", e.target?.avatar.files[0]);
 
-                    const request = new XMLHttpRequest();
-                    request.open("POST", `${backendUrl}/api/register`);
-                    request.send(form);
+                        const response = await fetch(
+                            `${backendUrl}/api/register`,
+                            {
+                                method: "POST",
+                                headers: {},
+                                body: form,
+                                credentials: "include",
+                            }
+                        );
+                        const parsedResponse = await response.json();
 
-                    console.log(e);
+                        console.log(parsedResponse);
+
+                        console.log(e);
+                        if (response.status === 200) {
+                            router.push("/");
+                        }
+                    } catch (error) {}
                 }}
             >
                 <div className={style["custom-input-container"]}>

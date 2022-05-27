@@ -15,6 +15,8 @@ const Home: any = (props: { props: ReactPropTypes }) => {
     const { productList } = useContext(ProductsContext);
     const { backendUrl }: any = props;
 
+    console.log("[PROPS] => ", props);
+
     useEffect(() => {}, [productList]);
 
     return (
@@ -62,9 +64,8 @@ export async function getServerSideProps(context: any) {
     const backendUrl: string | undefined = process.env.DEVELOPMENT_BACKEND_URL;
     console.log(process.env.DEVELOPMENT_BACKEND_URL);
     const cookies = new Cookies(context.req, context.res);
-    
 
-    const isAuth: string | undefined = cookies.get("HSID");
+    const isAuth: string | undefined = cookies.get("tkn");
 
     if (isAuth) {
         return {

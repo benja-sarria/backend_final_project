@@ -15,18 +15,24 @@ export const formDataParser = async (req, res, next) => {
     form.parse(req, function (err, fields, files) {
         req.body = { ...fields };
 
-        var oldPath = files.avatar.path;
+        var oldPath = files.avatar.filepath;
         console.log(files.avatar);
         var newPath =
-            path.join("public/assets/") + "/" + files.avatar.originalFilename;
+            path.join("public/assets/") + files.avatar.originalFilename;
         console.log(newPath);
         var rawData = fs.readFileSync(oldPath);
 
-        fs.writeFile(newPath, rawData, function (err) {
-            if (err) console.log(err);
-            return res.send("Successfully uploaded");
+        fs.writeFile(`${newPath}`, rawData, function (err) {
+            if (err) {
+                console.log(err);
+                res.json({
+                    message: "error",
+                });
+            }
+            console.log("Successfully uploaded");
         });
-
+        req.body.avatarUrl =
+            path.join("public/assets/") + files.avatar.originalFilename;
         console.log(req.body);
 
         next();

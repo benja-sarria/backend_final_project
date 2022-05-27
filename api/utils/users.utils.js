@@ -1,20 +1,17 @@
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
 export const formatUserForDB = (userObj) => {
-    const today = moment();
-
-    const birthdate = moment(userObj.birthdate, "MMMM DD, YYYY").startOf("day");
-    const userAge = today.diff(birthdate, "years");
     const newUser = {
-        id: { type: Number, required: true },
+        id: uuidv4(),
         email: userObj.email,
         password: userObj.password,
         name: userObj.name,
-        address: { type: String, required: true },
+        address: userObj.address,
         age: +userObj.age,
-        phoneNumber: { type: String, required: true },
-        avatarUrl: { type: String, required: true },
-        createdAt: new Date(),
+        phoneNumber: userObj.phoneNumber,
+        avatarUrl: userObj.avatarUrl,
+        createdAt: `${new Date()}`,
     };
     return newUser;
 };

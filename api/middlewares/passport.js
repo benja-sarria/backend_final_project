@@ -1,11 +1,11 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcrypt";
-import { MongoDBUsersDao } from "../daos/users/mongoDBUsersDao.js";
 import { formatUserForDB } from "../utils/users.utils.js";
 import mongoose from "mongoose";
+import { UsersDao } from "../daos/index.js";
 
-const User = new MongoDBUsersDao();
+const User = new UsersDao();
 
 const salt = () => {
     return bcrypt.genSaltSync(10);
@@ -51,24 +51,25 @@ passport.use(
                 console.log(`ENTRANDO A REGISTER`);
                 console.log(req.body);
 
-                /* const userObject = {
+                const userObject = {
                     name: req.body.name,
                     address: req.body.address,
                     age: req.body.age,
-                    username: username,
+                    email: req.body.username,
                     password: createHash(password),
                     phoneNumber: req.body.phoneNumber,
-                    avatar: req.body.avatar,
+                    avatarUrl: req.body.avatarUrl,
                 };
                 const newUser = formatUserForDB(userObject);
-                const user = await User.createUser(newUser);
+                const user = await User.MongoDBUsersDao.create(newUser);
+                console.log(user[0]);
                 // El primer parámetro indica un problema de sintaxis, de algún proceso asíncrono, etc. por eso va null
-                if (user.password) {
+                if (user[0].password) {
                     console.log("User registration successful");
-                    return done(null, user);
+                    return done(null, user[0]);
                 } else {
                     return done(null, false);
-                } */
+                }
             } catch (error) {
                 console.log("Error signing up", error);
                 return done(error);
@@ -80,13 +81,14 @@ passport.use(
 // Serialización - Passport cuando guarda los usuarios realiza este proceso
 passport.serializeUser((user, done) => {
     console.log("Inside serializer");
+    console.log(user);
     done(null, user._id);
 });
 
 // Deserialización - Passport cuando lee los usuarios realiza este proceso
-passport.deserializeUser(async (id, done) => {
+passport.deserializeUser(async (email, done) => {
     console.log("Inside deserializer");
-    const user = await User.getById(id);
+    const user = await User.MongoDBUsersDao.findByEmail(email);
 
     done(null, user);
 });
