@@ -12,6 +12,8 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useEffect, useState } from "react";
 import { UserModel } from "../../models/UserModel";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useRouter } from "next/router";
 
 export default function AccountMenu() {}
 
@@ -25,6 +27,7 @@ export const UserMenu = ({
     const [anchorEl, setAnchorEl] = useState(null);
     const [avatarInitials, setAvatarInitials] = useState<string[]>();
     const open = Boolean(anchorEl);
+    const router = useRouter();
     const handleClick = (event: any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -102,7 +105,7 @@ export const UserMenu = ({
             >
                 <MenuItem>
                     <Avatar
-                        alt="Travis Howard"
+                        alt={user?.name}
                         src={`${backendUrl}/${user?.avatarUrl.replace(
                             "public/",
                             ""
@@ -111,7 +114,7 @@ export const UserMenu = ({
                     {user?.name}
                 </MenuItem>
                 <MenuItem>
-                    <Avatar /> Cart
+                    <ShoppingCartIcon /> Cart
                 </MenuItem>
                 <Divider />
                 <MenuItem>
@@ -126,7 +129,11 @@ export const UserMenu = ({
                     </ListItemIcon>
                     Settings
                 </MenuItem>
-                <MenuItem>
+                <MenuItem
+                    onClick={() => {
+                        router.push("/api/auth/logout");
+                    }}
+                >
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>

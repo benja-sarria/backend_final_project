@@ -81,3 +81,20 @@ router.post("/user", async (req, res) => {
     console.log(user);
     res.json(user);
 });
+
+router.get("/logout", async (req, res) => {
+    await req.logOut(() => {
+        const serialized = serialize("tkn", "", {
+            httpOnly: true,
+            sameSite: "strict",
+            maxAge: -50000,
+            path: "/",
+        });
+
+        res.setHeader("Set-Cookie", serialized);
+        console.log("User logged out");
+        res.json({
+            loggedOut: true,
+        });
+    });
+});
