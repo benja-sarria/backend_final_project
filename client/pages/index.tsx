@@ -10,14 +10,25 @@ import styles from "../styles/Home.module.css";
 import { authFunction } from "../utils/authFunction";
 import { ServerResponse } from "http";
 import { useRouter } from "next/router";
+import { authenticate } from "../utils/authenticate";
+import { UserContext } from "../components/context/UserProvider";
+import { UserMenu } from "../components/UserMenu/UserMenu";
 
 const Home: any = (props: { props: ReactPropTypes }) => {
     const { productList } = useContext(ProductsContext);
     const { backendUrl }: any = props;
 
+    const { user, setUser } = useContext(UserContext);
+
     console.log("[PROPS] => ", props);
 
-    useEffect(() => {}, [productList]);
+    useEffect(() => {
+        authenticate(setUser);
+        console.log(user);
+        console.log(backendUrl);
+    }, [props]);
+
+    useEffect(() => {}, [productList, backendUrl]);
 
     return (
         <div className={styles.container}>
@@ -33,6 +44,7 @@ const Home: any = (props: { props: ReactPropTypes }) => {
 
             <main className={styles.main}>
                 <PageDrawer />
+                <UserMenu user={user && user} backendUrl={backendUrl} />
                 <h1>E-commerce</h1>
                 <ProductListContainer />
             </main>
@@ -71,6 +83,7 @@ export async function getServerSideProps(context: any) {
         return {
             props: {
                 isAuth: true,
+                backendUrl: backendUrl,
             }, // will be passed to the page component as props
         };
     } else {

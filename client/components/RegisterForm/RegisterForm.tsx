@@ -78,7 +78,7 @@ export const RegisterForm = ({
                 <div className={style["custom-input-container"]}>
                     <label htmlFor="age">Y cuántos años tienes?</label>
                     <input
-                        type="text"
+                        type="number"
                         name="age"
                         id="age"
                         placeholder="Ingresa tu edad"
@@ -109,7 +109,7 @@ export const RegisterForm = ({
                         Es imposible que revelemos tus claves
                     </label>
                     <input
-                        type="text"
+                        type="password"
                         name="password"
                         id="password"
                         placeholder="Ingresa tu clave"
@@ -118,7 +118,7 @@ export const RegisterForm = ({
                 <div className={style["custom-input-container"]}>
                     <label htmlFor="passwordCheck">Confirmemos tu clave</label>
                     <input
-                        type="text"
+                        type="password"
                         name="passwordCheck"
                         id="passwordCheck"
                         placeholder="Ingresa nuevamente la clave"

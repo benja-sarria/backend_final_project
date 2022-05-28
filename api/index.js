@@ -23,7 +23,9 @@ const PORT = process.env.PORT || 8080;
 // Middlewares
 app.use(authMiddleware);
 app.use(allowAccess);
-app.use(express.static("public"));
+app.use(express.static("./public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(bodyParser({ extended: true }));
 app.use(
     session({

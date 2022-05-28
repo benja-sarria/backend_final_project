@@ -15,6 +15,7 @@ const createHash = (password) => {
 };
 
 const isValidPassword = (user, password) => {
+    console.log(user);
     if (user.password) {
         return bcrypt.compareSync(password, user.password);
     } else {
@@ -25,15 +26,18 @@ const isValidPassword = (user, password) => {
 // Passport Local Strategy
 passport.use(
     "login",
-    new LocalStrategy(async (email, password, done) => {
+    new LocalStrategy(async (username, password, done) => {
         try {
-            const user = await User.findByEmail(email);
-            if (!isValidPassword(user, password)) {
+            console.log("entrando al login");
+            console.log(username, password);
+            const user = await User.MongoDBUsersDao.findByEmail(username);
+            console.log("[USER] => ", user);
+            if (!isValidPassword(user[0], password)) {
                 console.log("Invalid user or password");
                 return done(null, false); // Enviamos false como segundo parámetro para que envíe al failureRedirect que pusimos en la ruta
             }
             // El primer parámetro indica un problema de sintaxis, de algún proceso asíncrono, etc. por eso va null
-            return done(null, user);
+            return done(null, user[0]);
         } catch (error) {
             return done(error);
         }

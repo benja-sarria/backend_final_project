@@ -8,6 +8,8 @@ import { serialize } from "cookie";
 
 import passport from "../middlewares/passport.js";
 import { formDataParser } from "../middlewares/formDataParser.js";
+import { reqParser } from "../middlewares/reqParser.js";
+import { UsersDao } from "../daos/index.js";
 
 export const router = express.Router();
 
@@ -48,8 +50,34 @@ router.post(
 );
 router.post(
     "/login",
+    [reqParser],
     passport.authenticate("login", {
         failureRedirect: `${config.FRONT_URL}/loginError`,
-        successRedirect: `${config.FRONT_URL}/`,
-    })
+    }),
+    (req, res) => {
+        console.log("login exitoso");
+        console.log(config.FRONT_URL);
+        console.log(req);
+
+        const serialized = serialize("tkn", req.user._id, {
+            httpOnly: true,
+            sameSite: "strict",
+            maxAge: 60 * 60 * 24,
+            path: "/",
+        });
+
+        res.setHeader("Set-Cookie", serialized);
+
+        res.redirect(`${config.FRONT_URL}/`);
+    }
 );
+
+router.post("/user", async (req, res) => {
+    console.log(req.body);
+    const User = new UsersDao();
+    const user = await User.MongoDBUsersDao.findByUserId(req.body.tkn, {
+        __v: 0,
+    });
+    console.log(user);
+    res.json(user);
+});

@@ -106,6 +106,24 @@ export class MongoDBContainer {
             mongoose.disconnect();
         }
     }
+    async findByUserId(id, projectionObject = {}) {
+        try {
+            await mongoose.connect(this.DB_URI);
+            console.log(`Database connected correctly!`);
+
+            if (this.type === "users") {
+                const users = await UsersModel.find(
+                    { _id: id },
+                    projectionObject
+                );
+                return users[0];
+            }
+        } catch (error) {
+            console.log(error.message);
+        } finally {
+            mongoose.disconnect();
+        }
+    }
 
     async update({
         oneOrMany = "one",
